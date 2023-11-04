@@ -6,8 +6,9 @@
 #include <stdlib.h>
 
 #define MAX_NAME_USER 1500
+#define MAX_USUARIOS 50
 #define MAX_TAM_PASS 100
-#define MAX_PRODUTOS 1100
+#define MAX_PRODUTOS 50
 #define MAX_NAME_PROD 1100
 
     enum tipoUsuario{
@@ -21,11 +22,24 @@
         float preco;
         
     };
+
+    struct Pedido{
+        int idPedido;
+        int quantidade;
+        float total;
+    };
     
     struct Usuario{
         char nomeUsuario[MAX_NAME_USER];
         int idUsuario;
-        char senha[MAX_TAM_PASS];
+        char senhaUsuario[MAX_TAM_PASS];
+        enum tipoUsuario tipoUsuario;
+    };
+
+    struct Administrador{
+        char nomeAdm[MAX_NAME_USER];
+        int idUAdm;
+        char senhaAdm[MAX_TAM_PASS];
         enum tipoUsuario tipoUsuario;
     };
 
