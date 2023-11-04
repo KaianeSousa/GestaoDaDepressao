@@ -56,7 +56,7 @@
     void listarProdutos(struct Produto *produto, int tam_estoque);
     void cadastrarUsuario(struct Usuario *usuario, int *tam_lista);
     void excluirUsuario(struct Usuario *usuario, int *tam_lista);
-    void mostrarDados(struct Produto *produto, int *tam_estoque, struct Usuario *usuario, int *tam_lista);
+    void listarPedidos(struct Produto *produto, int *tam_estoque, struct Usuario *usuario, int *tam_lista);
 
 
 //Funções do usuário Convencional 
