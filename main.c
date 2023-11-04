@@ -1,33 +1,4 @@
-
-//#include "scg.h"
-
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-#define MAX_NAME_USER 1500
-#define MAX_TAM_PASS 100
-#define MAX_PRODUTOS 1100
-#define MAX_NAME_PROD 1100
-
-   enum tipoUsuario{
-        ADMINISTRADOR, USER_CONVENCIONAL
-    };
-    
-    struct Produto{
-        char nomeProduto[MAX_NAME_PROD];
-        int idProduto;
-        int quantidade;
-        float preco;
-        
-    };
-    
-    struct Usuario{
-        char nomeUsuario[MAX_NAME_USER];
-        int idUsuario;
-        char senha[MAX_TAM_PASS];
-        enum tipoUsuario tipoUsuario;
-    };
+#include "sgc.h"
 
  void mostrarMenu(){
      
@@ -103,7 +74,7 @@
         } else {
             printf("Não foi possível realizar o Login. Você será redirecionado para Menu Principal\n");
             mostrarMenu();
-            return; // Sair da função se todas as tentativas se esgotaram
+            return 0;
         }
         }
     }
@@ -151,7 +122,7 @@
         } else {
             printf("Não foi possível realizar o Login. Você será redirecionado para Menu Principal\n");
             mostrarMenu();
-            return; // Sair da função se todas as tentativas se esgotaram
+            return 0;
         }
                     }
                 }
@@ -160,7 +131,7 @@
     }
  }
  
-int main(void)
+int main()
 {
 
     return 0;
