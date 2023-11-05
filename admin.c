@@ -72,7 +72,7 @@ void interacaoAdmin(struct Usuario *usuario, struct ListaProdutos *produto, int 
     
 void salvarProdutos(struct Produto *produto, int tamEstoque) {
 
-    FILE *arquivo = fopen("produtos.txt", "w");
+    FILE *arquivo = fopen("estoque.txt", "w");
 
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo para salvar os produtos.\n");
@@ -89,7 +89,7 @@ void salvarProdutos(struct Produto *produto, int tamEstoque) {
 
     fclose(arquivo);
 
-    printf("Produtos salvos com sucesso em 'produtos.txt'.\n");
+    printf("Produtos salvos com sucesso em 'estoque.txt'.\n");
 }
 
         void listarProdutos(struct Produto *produto, int tamEstoque) {
