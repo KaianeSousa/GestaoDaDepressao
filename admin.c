@@ -72,7 +72,7 @@ void interacaoAdmin(struct Usuario *usuario, struct ListaProdutos *produto, int 
     
 void salvarProdutos(struct Produto *produto, int tamEstoque) {
 
-    FILE *arquivo = fopen("estoque.txt", "w");
+    FILE *arquivo = fopen("produtos.txt", "w");
 
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo para salvar os produtos.\n");
@@ -89,7 +89,7 @@ void salvarProdutos(struct Produto *produto, int tamEstoque) {
 
     fclose(arquivo);
 
-    printf("Produtos salvos com sucesso em 'estoque.txt'.\n");
+    printf("Produtos salvos com sucesso em 'produtos.txt'.\n");
 }
 
         void listarProdutos(struct Produto *produto, int tamEstoque) {
@@ -190,7 +190,7 @@ void excluirUsuario(struct Usuario *usuario, int *tam_lista, int idUsuario) {
     }
 }
 
- void listarPedidos(struct Produto *produto, int *tam_estoque, struct Usuario *usuario, int *tam_lista){
+ void listarPedidos(struct Produto *produto, int *tamEstoque, struct Usuario *usuario, int *tam_lista){
      
     int idCliente;
     
@@ -204,7 +204,7 @@ void excluirUsuario(struct Usuario *usuario, int *tam_lista, int idUsuario) {
         if(usuario[i].idUser == idCliente){
             printf("Pedidos do cliente %s:\n", usuario[i].nomeUsuario);
 
-            for (int j = 0; j < *tam_estoque; j++) {
+            for (int j = 0; j < *tamEstoque; j++) {
 
                 if (produto[j].idProduto == idCliente) {
                     printf(" -- Produto: %s\n", produto[j].nomeProduto);
