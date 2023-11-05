@@ -1,0 +1,4 @@
+Nome: Desodorante
+Quantidade: 10
+Preço: 12
+ID: 6654

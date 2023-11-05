@@ -1,0 +1,8 @@
+produto: sabão
+quantidade: 2
+
+produto: sanonete
+quantidade: 5
+
+produto: xilito
+quantidade: 3
