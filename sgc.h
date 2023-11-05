@@ -4,44 +4,44 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define MAX_NAME_USER 1500
-#define MAX_USUARIOS 50
 #define MAX_TAM_PASS 100
-#define MAX_PRODUTOS 50
+#define MAX_USUARIOS 50
+#define MAX_PRODUTOS 1100
 #define MAX_NAME_PROD 1100
 
-    enum tipoUsuario{
-        ADMINISTRADOR, USER_CONVENCIONAL
-    };
-    
-    struct Produto{
-        char nomeProduto[MAX_NAME_PROD];
-        int idProduto;
-        int quantidade;
-        float preco;
-        
-    };
+enum tipoUsuario {
+    ADMINISTRADOR, CONVENCIONAL
+};
 
-    struct Pedido{
-        int idPedido;
-        int quantidade;
-        float total;
-    };
-    
-    struct Usuario{
-        char nomeUsuario[MAX_NAME_USER];
-        int idUsuario;
-        char senhaUsuario[MAX_TAM_PASS];
-        enum tipoUsuario tipoUsuario;
-    };
+struct Produto {
+    char nomeProduto[MAX_NAME_PROD];
+    int idProduto;
+    int quantidade;
+    float preco;
+};
 
-    struct Administrador{
-        char nomeAdm[MAX_NAME_USER];
-        int idUAdm;
-        char senhaAdm[MAX_TAM_PASS];
-        enum tipoUsuario tipoUsuario;
-    };
+struct Pedido {
+    int idPedido;
+    float total;
+};
+
+struct Usuario {
+    char nomeUsuario[MAX_NAME_USER];
+    char senha[MAX_TAM_PASS];
+    int idUser;
+    enum tipoUsuario tipoUsuario;
+};
+
+
+struct ListaProdutos {
+    struct Produto produtos[MAX_PRODUTOS];
+    int tamEstoque;
+};
+
+
 
 //Funções da main
     void mostrarMenu();
@@ -52,9 +52,11 @@
 //Funções do usuário Administrador
 
     void interacaoAdmin(struct Usuario *usuario, struct Produto *produto, int tam_estoque, int tam_lista);
-    void adicionarProduto(struct Produto *produto, int *tam_estoque);
-    void listarProdutos(struct Produto *produto, int tam_estoque);
+    void adicionarProduto(struct Produto *produto, int *tamEstoque);
+    void salvarProdutos(struct Produto *produto, int tamEstoque);
+    void listarProdutos(struct Produto *produto, int tamEstoque);
     void cadastrarUsuario(struct Usuario *usuario, int *tam_lista);
+    int numeroExistente(const int *numeros, int tamanho, int numero);
     void excluirUsuario(struct Usuario *usuario, int *tam_lista);
     void listarPedidos(struct Produto *produto, int *tam_estoque, struct Usuario *usuario, int *tam_lista);
 
