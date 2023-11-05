@@ -63,8 +63,9 @@ struct ListaProdutos {
 
 //Funções do usuário Convencional 
 
-    void interacaoUsuario(struct Produto *produto, struct Usuario *usuario, int *tam_estoque, int *tam_lista);
-    void pedidos(struct Produto *produto, int *tamanho);
-    void listarPedidos();
+    void interacaoUsuario(struct Produto *produto, struct Usuario *usuario, int *tamEstoque, int *tam_lista);
+    void pedidosProdutos(struct Produto *produto, int *tamEstoque);
+    void listarCompras(const char *nomePedido, int quantidadePedido);
+    void exibirProdutosEstoque();
 
 #endif
