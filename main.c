@@ -1,139 +1,229 @@
 #include "sgc.h"
 
- void mostrarMenu(){
-     
-     printf("--------------------------------------------\n");
-     printf("   Bem-vindo(a) ao mercadinho Pura Preguiça\n");
-     printf("--------------------------------------------\n");
-     printf("   O que deseja fazer em nosso sistema?\n");
-     printf("   1. Entrar como Administrador\n");
-     printf("   2. Entrar como Usuário Cnvencional\n");
-     printf("   3. Sair\n");
- }
- 
- void interacao(){
-     int opcao, tam_estoque, tam_lista, sair = 0, tentativas = 0, chances = 3;
-     
-    struct Produto produto[MAX_PRODUTOS];
-    struct Usuario *usuario = (struct Usuario *)malloc(sizeof(struct Usuario) * tam_lista);
-    
-    strcpy(usuario[0].nomeUsuario, "Kaiane");
-    strcpy(usuario[0].senha, "3333");
-    usuario[0].tipoUsuario = ADMINISTRADOR;
-    
-        do {
-        scanf("%d", &opcao);
+void interacaoAdmin(struct Usuario *usuario, struct ListaProdutos *produto, int tam_lista) {
+    int opc;
 
-        switch (opcao) {
+    printf("Olá, administrador %s\n", usuario[0].nomeUsuario);
+    printf("-------------------------------------------\n");
+    do {
+        printf("O que deseja fazer?\n");
+        printf(" 1 - Adicionar produto\n");
+        printf(" 2 - Listar produtos em estoque\n");
+        printf(" 3 - Cadastrar usuário\n");
+        printf(" 4 - Excluir usuário\n");
+        printf(" 5 - Listar pedidos\n");
+        printf(" 6 - Sair\n");
+
+        scanf("%d", &opc);
+
+        switch (opc) {
             case 1:
-                menuAdmin(usuario, produto, tentativas);
+                adicionarProduto(produto, tamEstoque);
                 break;
             case 2:
-                menuUsuario(usuario, produto, tam_estoque, &tam_lista);
+                listarProdutos(produto, *tamEstoque);
                 break;
             case 3:
-                printf("Agradeço por acessar nosso sistema, até!\n");
-                exit(1);
+                cadastrarUsuario(usuario, &tam_lista);
+                break;
+            case 4:
+                excluirUsuario(usuario, &tam_lista);
+                break;
+            case 5:
+                listarPedidos(Pedido, &tam_pedidos);
+                break;
+            case 6:
+                printf("Retornando ao Menu Principal\n");
+                return;
+                break;
             default:
-                printf("Opção inválida, as opções disponíveis são apenas 1, 2 e 3.\n");
+                printf("Leia novamente as alternativas, sua escolha está fora dos nossos padrões.\n");
                 break;
         }
-        
-        mostrarMenu();
-        
-    }while (opcao != 3);
- }
+    } while (opc != 6);
+}
 
- void menuAdmin(struct Usuario *usuario, struct Produto *produto, int tentativas){
-     
-     int tam_lista=0, tam_estoque=0, chances=3;
-     char senhaADM[35];
-     int acesso = 0;
-     
-    while(tentativas < chances && !acesso) {
+
+    void adicionarProduto(struct Produto *produto, int *tamEstoque){
+        
+        struct Produto produtoAdc;
     
-    printf("Senha: ");
-    scanf("%s", senhaADM);
+        printf("Iniciando operação para adicionar um produto ao estoque.\n");
+    
+        printf("Digite o nome do produto: ");
+        scanf(" %[^\n]", produtoAdc.nomeProduto);
+    
+        printf("Digite a quantidade em estoque: ");
+        scanf("%d", &produtoAdc.quantidade);
+    
+        printf("Digite o preço unitário: ");
+        scanf("%f", &produtoAdc.preco);
+    
+        printf("Digite o ID do produto: ");
+        scanf("%d", &produtoAdc.idProduto);
+    
+        produto[(*tamEstoque)++] = produtoAdc;
+    
+        printf("Produto adicionado a lista com sucesso!\n");
+    
+        salvarProdutos(produto, tamanho);
+}
+    
+    
+void salvarProdutos(struct Produto *produto, int tamEstoque) {
 
-    for (int i = 0; i < chances; i++) {
+    FILE *arquivo = fopen("produtos.txt", "w");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo para salvar os produtos.\n");
+        return;
+    }
+
+    for (int i = 0; i < tamanho; i++) {
+        fprintf(arquivo, "Nome: %s\n", produto[i].nomeProduto);
+        fprintf(arquivo, "Quantidade: %d\n", produto[i].quantidade);
+        fprintf(arquivo, "Preço: %.2f\n", produto[i].preco);
+        fprintf(arquivo, "ID: %d\n", produto[i].idProduto);
+        fprintf(arquivo, "\n");
+    }
+
+    fclose(arquivo);
+
+    printf("Produtos salvos com sucesso em 'produtos.txt'.\n");
+}
+
+        void listarProdutos(struct Produto *produto, int tamEstoque) {
+          
+            if(tamEstoque > 0){    
+                printf("Lista de produtos no estoque:\n");
+                
+                for(int i = 0; i < tamEstoque; i++){
+                    
+                    printf(" Id: %d \n", produto[i].idProduto);
+                    printf(" Nome: %s \n", produto[i].nomeProduto);
+                    printf(" Quantidade em estoque: %d\n", produto[i].quantidade);
+                    printf(" Preço Uni.: R$ %.2f\n", produto[i].preco);
+                    printf("\n");
+                }
+            }else{
+                printf("Estoque vazio.\n");
+            }
+           
+        }
         
-        if (strcmp(senhaADM, usuario[i].senha) == 0) {
-            acesso = 1;
-            interacaoAdmin(produto, usuario, &tam_estoque, &tam_lista);
-            break;
+        
+     void cadastrarUsuario(struct Usuario *usuario, int *tam_lista){
+          if(*tam_lista < MAX_USUARIOS){
+              
+                struct Usuario novoUsuario;
+                
+                printf("Digite o nome de usuário: ");
+                scanf(" %s", novoUsuario.nomeUsuario);
+        
+                printf("Digite a senha: ");
+                scanf(" %s", novoUsuario.senha);
+        
+                int escolhaTipo;
+                
+                printf("Escolha o tipo de usuário (0 para ADMINISTRADOR, 1 para CONVENCIONAL): ");
+                scanf("%d", &escolhaTipo);
+
+        if(escolhaTipo == ADMINISTRADOR || escolhaTipo == CONVENCIONAL){
+            novoUsuario.tipoUsuario = (enum tipoUsuario)escolhaTipo;
+
+            srand(time(NULL));
+            
+            do{
+                
+                novoUsuario.idUser = rand(); 
+                
+            }while(numeroExistente(numerosGerados, *numerosGeradosSize, novoUsuario.idUser));
+
+            numerosGerados[(*numerosGeradosSize)++] = novoUsuario.idUser;
+            usuarios[(*tam_lista)++] = novoUsuario;
+
+            printf("Usuário cadastrado com sucesso. ID do usuário: %d\n", novoUsuario.idUser);
+            
+            }else{
+                
+                printf("Tipo de usuário inválido. Usuário não criado.\n");
+            }
+                }else{
+                    
+                    printf("Limite de usuários atingido. Não é possível adicionar mais usuários.\n");
+                }
+    }
+
+int numeroExistente(const int *numeros, int tamanho, int numero) {
+    for(int i = 0; i < tamanho; i++){
+        if(numeros[i] == numero){
+            return 1;
         }
     }
+    return 0;
+}
+
+
+
+void excluirUsuario(struct Usuario *usuario, int *tam_lista, int idUsuario) {
+    int indiceExcluir = -1;
+
+    for(int i = 0; i < *tam_lista; i++){
+        if(usuario[i].idUser == idUsuario){
+            indiceExcluir = i;
+            break; 
+        }
+    }
+
+    if(indiceExcluir != -1){
+
+        for(int i = indiceExcluir; i < (*tam_lista - 1); i++){
+            usuario[i] = usuario[i + 1];
+        }
+        
+        (*tam_lista)--;
+        
+        printf("Usuário com ID %d foi excluído com sucesso.\n", idUser);
         
     }else{
-        
-        tentativas++;
-        int possibilidades = chances - tentativas;
-        
-        if (possibilidades > 0) {
-            printf("Senha inválida, tens %d tentativas restantes\n", possibilidades);
-        } else {
-            printf("Não foi possível realizar o Login. Você será redirecionado para Menu Principal\n");
-            mostrarMenu();
-            return 0;
-        }
-        }
+        printf("Usuário com ID %d não foi encontrado. Nenhuma conta foi excluída.\n", idUser);
     }
- }
- 
- void menuUsuario(struct Usuario *usuario, struct Produto *produto, int tam_estoque, int tam_lista){
-     
-     int id, tentativas = 0, chances = 3, userLocalizado = 0, acesso = 0;
-     int possibilidades = 0;
-     char senhaConvencional[35];
-      
-     usuario = (struct Usuario *)malloc(sizeof(struct Usuario));
-     
-     if(*tam_lista > 0){
-         
-         printf("Informe seu ID: ");
-         scanf("%d", &id);
-         
-         for(int i=0; i<*tam; i++){
-             if(id == usuario[i].idUsuario){
-                 printf("Usuário encontrado.\n");
-                 userLocalizado = 1;
-                 
-    while(tentativas < chances && !acesso) {
-    
-    printf("Senha: ");
-    scanf("%s", senhaConvencional);
+}
 
-    for (int i = 0; i < chances; i++) {
+ void listarPedidos(struct Produto *produto, int *tam_estoque, struct Usuario *usuario, int *tam_lista){
+     
+    int idCliente;
+    
+    printf("Digite o ID do cliente para listar os pedidos: ");
+    scanf("%d", &idCliente);
+
+    printf("Pedidos do cliente ID %d:\n", idCliente);
+
+    for(int i = 0; i < *tam_lista; i++){
         
-        if (strcmp(senhaConvencional, usuario[i].senha) == 0) {
-            acesso = 1;
-            interacaoAdmin(produto, usuario, &tam_estoque, &tam_lista);
-            break;
-        }
-    }
-        
-    }else{
-        
-        tentativas++;
-        int possibilidades = chances - tentativas;
-        
-        if (possibilidades > 0) {
-            printf("Senha inválida, tens %d tentativas restantes\n", possibilidades);
-        } else {
-            printf("Não foi possível realizar o Login. Você será redirecionado para Menu Principal\n");
-            mostrarMenu();
-            return 0;
-        }
-                    }
+        if(usuario[i].idUser == idCliente){
+            printf("Pedidos do cliente %s:\n", usuario[i].nomeUsuario);
+
+            for (int j = 0; j < *tam_estoque; j++) {
+
+                if (produto[j].idProduto == idCliente) {
+                    printf(" -- Produto: %s\n", produto[j].nomeProduto);
+                    printf(" -- Quantidade: %d\n", produto[j].quantidade);
+                    printf(" -- Preço: R$ %.2f\n", produto[j].preco);
+                    printf("\n");
                 }
             }
         }
     }
  }
+
+
+
+int main() {
+    
  
-int main()
-{
 
     return 0;
 }
+
 
