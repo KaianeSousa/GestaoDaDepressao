@@ -1,4 +1,4 @@
-
+#include "sgc.h"
     
 
     void interacaoUsuario(struct Produto *produto, struct Usuario *usuario, int *tamEstoque, int *tam_lista){
