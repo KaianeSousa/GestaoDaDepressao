@@ -2,4 +2,4 @@ Esse código está incompleto e não tenho noção de quando o continuarei.
 Assim que vi a lista de requisitos, minha alma saiu do corpo e quase não retornava.
 Mediante inúmeras situações, tentei fazer um pouco de tudo, para dizer que não fiz nada e ainda
 poderia ter parado no administrador, mas ao invés disso fui e colapsei fazendo o do usuário.
-Peço desculpas pela minha incapacidade e irresponsabilidade de fazer essa aplicação a tempo e completo.
+Peço desculpas pela minha incapacidade e irresponsabilidade de fazer essa aplicação a tempo e completa.
