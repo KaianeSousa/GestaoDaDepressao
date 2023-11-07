@@ -1,3 +1,5 @@
+#include "sgc.h"
+
 void mostrarMenu(){
      
      printf("--------------------------------------------\n");
