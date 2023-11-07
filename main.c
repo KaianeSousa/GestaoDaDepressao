@@ -77,7 +77,7 @@ void mostrarMenu(){
         } else {
             printf("Não foi possível realizar o Login. Você será redirecionado para Menu Principal\n");
             mostrarMenu();
-            return 0; // Sair da função se todas as tentativas se esgotaram
+            return 0;
         }
         }
     }
